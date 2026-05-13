@@ -120,10 +120,10 @@ export function Header() {
                 size={18}
                 aria-hidden
                 className={
-                  `absolute inset-0 m-auto transition-all duration-500 ease-in-out transform ` +
+                  `absolute inset-0 m-auto transition-[opacity,transform] duration-500 ease-in-out motion-safe:transform-gpu motion-safe:will-change-transform ` +
                   (theme === "dark"
-                    ? "opacity-100 scale-100 rotate-0"
-                    : "opacity-0 scale-75 -rotate-30")
+                    ? "opacity-100 scale-100 rotate-0 translate-y-0"
+                    : "opacity-0 scale-50 rotate-90 -translate-y-1")
                 }
               />
 
@@ -131,10 +131,10 @@ export function Header() {
                 size={16}
                 aria-hidden
                 className={
-                  `absolute inset-0 m-auto transition-all duration-500 ease-in-out transform ` +
+                  `absolute inset-0 m-auto transition-[opacity,transform] duration-500 ease-in-out motion-safe:transform-gpu motion-safe:will-change-transform ` +
                   (theme === "dark"
-                    ? "opacity-0 scale-75 -rotate-30 "
-                    : "opacity-100 scale-100 rotate-0")
+                    ? "opacity-0 scale-50 -rotate-90 translate-y-1"
+                    : "opacity-100 scale-100 rotate-0 translate-y-0")
                 }
               />
             </button>
