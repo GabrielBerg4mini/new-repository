@@ -1,36 +1,50 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { FaBars, FaTimes, FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
-import { NAV_LINKS, SOCIAL_MEDIA_LINKS, RESUME_LINK } from "./Header.data";
+import { useState } from "react";
+import { FaBars, FaTimes, FaMoon } from "react-icons/fa";
+import { TiWeatherSunny } from "react-icons/ti";
+import { NAV_LINKS, RESUME_LINK } from "./Header.data";
+import { useTranslation } from "@/hooks/useTranslation";
+import { useTheme } from "@/hooks/useTheme";
+import { useLanguageTransition } from "@/hooks/useLanguageTransition";
+import { useActiveHash } from "@/hooks/useActiveHash";
+
 import Link from "next/link";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeHash, setActiveHash] = useState(() => window.location.hash);
+  const navGradientText =
+    "bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500";
+  const navGradientHoverText =
+    "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-cyan-400 hover:via-sky-400 hover:to-blue-500";
+  const navGradientUnderline =
+    "after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-0 after:rounded-full after:bg-gradient-to-r after:from-cyan-400 after:via-sky-400 after:to-blue-500 after:transition-all after:duration-300 after:ease-out after:content-['']";
 
-  useEffect(() => {
-    // Listener para quando o hash mudar (ao clicar em um link)
-    const handleHashChange = () => setActiveHash(window.location.hash);
-    window.addEventListener("hashchange", handleHashChange);
+  const { theme, toggleTheme } = useTheme();
+  const { locale, setLocale, t } = useTranslation();
+  const { isChangingLanguage, handleLanguageChange } = useLanguageTransition();
+  const { activeHash } = useActiveHash();
 
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  const navLinkClassName = (href: string) => {
+    const isActive = activeHash === href;
 
-  const isActive = (href: string) => activeHash === href;
-
-  const getIconByLabel = (label: string) => {
-    const iconMap: Record<string, React.ReactNode> = {
-      GitHub: <FaGithub size={24} />,
-      LinkedIn: <FaLinkedin size={24} />,
-      Email: <FaEnvelope size={24} />,
-    };
-    return iconMap[label] || null;
+    return [
+      "relative inline-flex items-center pb-1 text-sm transition-all duration-300 ease-out",
+      navGradientUnderline,
+      `hover:after:w-full ${navGradientHoverText}`,
+      isActive
+        ? `${navGradientText} font-semibold after:w-full`
+        : "text-foreground-muted hover:text-gray-300",
+    ].join(" ");
   };
 
   return (
     <header className="border-border border-b bg-secondary">
-      <div className="px-20 py-6 flex justify-between items-center">
+      <div
+        className={`px-5 md:px-20 py-6 flex justify-between items-center transition-all duration-300 ease-out ${
+          isChangingLanguage ? "opacity-60 translate-y-0.5" : "opacity-100 translate-y-0"
+        }`}
+      >
         {/* Botão Mobile */}
         <button
           aria-expanded={isMobileMenuOpen}
@@ -52,22 +66,21 @@ export function Header() {
 
         {/* Nav Desktop */}
         <nav className="hidden md:flex items-center gap-40" id="menu-desktop">
-          {/* Logo Desktop */}
-          <Link href="/" className="text-xl font-bold text-gray-500 hidden md:block">
-            Logo
-          </Link>
-          <ul className="flex gap-8">
+          <ul
+            className={`flex gap-8 transition-all duration-300 ease-out ${
+              isChangingLanguage ? "opacity-75 translate-y-0.5" : "opacity-100 translate-y-0"
+            }`}
+          >
             {NAV_LINKS.map((link) => (
-              <li key={link.label}>
+              <li key={link.labelKey}>
                 <a
-                  className={`transition-colors duration-200 ${
-                    isActive(link.href)
-                      ? "text-gray-300 font-semibold"
-                      : "text-foreground-muted hover:text-gray-300"
+                  className={`${navLinkClassName(link.href)} ${
+                    isChangingLanguage ? "opacity-80 translate-y-px" : "opacity-100 translate-y-0"
                   }`}
+                  aria-current={activeHash === link.href ? "location" : undefined}
                   href={link.href}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </a>
               </li>
             ))}
@@ -75,26 +88,63 @@ export function Header() {
         </nav>
 
         {/* Social Icons */}
-        <ul className="flex gap-4">
-          {SOCIAL_MEDIA_LINKS.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground-muted hover:text-gray-300 transition-colors duration-200"
-                aria-label={link.label}
+        <ul className="flex gap-4 items-center">
+          <li>
+            <button
+              type="button"
+              className="text-foreground-muted relative h-10 w-10 flex items-center justify-center overflow-hidden rounded-md bg-slate-700 cursor-pointer transition-colors duration-300 font-semibold hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors"
+              onClick={() => handleLanguageChange(locale, locale === "en" ? "pt" : "en", setLocale)}
+              aria-label="Toggle language"
+              data-lang={locale}
+            >
+              <span
+                className={`transition-all duration-300 ease-out ${
+                  isChangingLanguage ? "opacity-0 scale-90" : "opacity-100 scale-100"
+                }`}
               >
-                {getIconByLabel(link.label)}
-              </a>
-            </li>
-          ))}
+                {locale === "en" ? "EN" : "PT"}
+              </span>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              aria-pressed={theme === "dark"}
+              aria-label="Toggle theme"
+              onClick={toggleTheme}
+              className="text-foreground-muted relative h-10 w-10 flex items-center justify-center overflow-hidden rounded-md bg-slate-700 cursor-pointer transition-colors duration-300 font-semibold hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors"
+            >
+              <span className="sr-only">Toggle theme</span>
+
+              <TiWeatherSunny
+                size={18}
+                aria-hidden
+                className={
+                  `absolute inset-0 m-auto transition-all duration-500 ease-in-out transform ` +
+                  (theme === "dark"
+                    ? "opacity-100 scale-100 rotate-0"
+                    : "opacity-0 scale-75 -rotate-30")
+                }
+              />
+
+              <FaMoon
+                size={16}
+                aria-hidden
+                className={
+                  `absolute inset-0 m-auto transition-all duration-500 ease-in-out transform ` +
+                  (theme === "dark"
+                    ? "opacity-0 scale-75 -rotate-30 "
+                    : "opacity-100 scale-100 rotate-0")
+                }
+              />
+            </button>
+          </li>
           <li>
             <Link
               href={RESUME_LINK[0].href}
-              className="text-foreground-muted hover:text-secondary transition-colors duration-300 border border-foreground-muted px-3 py-1 rounded-md hover:bg-gray-300 hover:border-gray-300 *:transition-colors "
+              className="text-foreground-muted transition-colors duration-300 bg-slate-700 py-2 px-3 rounded-md hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors font-semibold"
             >
-              Resume
+              {t(RESUME_LINK[0].labelKey)}
             </Link>
           </li>
         </ul>
@@ -109,18 +159,21 @@ export function Header() {
         }`}
         id="menu-mobile"
       >
-        <ul className="flex flex-col gap-3 px-8 py-4 border-t border-border">
+        <ul
+          className={`flex flex-col gap-3 px-8 py-4 border-t border-border transition-all duration-300 ease-out ${
+            isChangingLanguage ? "opacity-75 translate-y-0.5" : "opacity-100 translate-y-0"
+          }`}
+        >
           {NAV_LINKS.map((link) => (
-            <li key={link.label}>
+            <li key={link.labelKey}>
               <a
-                className={`transition-colors duration-200 ${
-                  isActive(link.href)
-                    ? "text-gray-300 font-semibold"
-                    : "text-foreground-muted hover:text-gray-300"
+                className={`${navLinkClassName(link.href)} ${
+                  isChangingLanguage ? "opacity-80 translate-y-px" : "opacity-100 translate-y-0"
                 }`}
+                aria-current={activeHash === link.href ? "location" : undefined}
                 href={link.href}
               >
-                {link.label}
+                {t(link.labelKey)}
               </a>
             </li>
           ))}
