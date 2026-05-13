@@ -1,20 +1,41 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useSyncExternalStore, useCallback } from "react";
 
 type Theme = "light" | "dark";
 
-export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "light";
-    return (localStorage.getItem("theme") as Theme) || "light";
-  });
+function getThemeFromStorage(): Theme {
+  if (typeof window === "undefined") return "dark";
+  return (localStorage.getItem("theme") as Theme) || "dark";
+}
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
+function setThemeInStorage(theme: Theme): void {
+  try {
     localStorage.setItem("theme", theme);
-  }, [theme]);
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch {
+    // ignore
+  }
+}
 
-  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
+const themeSubscribers = new Set<() => void>();
+
+function subscribeToTheme(callback: () => void): () => void {
+  themeSubscribers.add(callback);
+  return () => themeSubscribers.delete(callback);
+}
+
+function notifyThemeChange(): void {
+  themeSubscribers.forEach((callback) => callback());
+}
+
+export function useTheme() {
+  const theme = useSyncExternalStore(subscribeToTheme, getThemeFromStorage, () => "dark");
+
+  const toggleTheme = useCallback(() => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setThemeInStorage(newTheme);
+    notifyThemeChange();
+  }, [theme]);
 
   return { theme, toggleTheme };
 }
