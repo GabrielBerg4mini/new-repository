@@ -1,0 +1,27 @@
+{
+  "header": {
+    "nav": {
+      "about": "About",
+      "skills": "Skills",
+      "experience": "Experience",
+      "projects": "Projects",
+      "certifications": "My certifications"
+    },
+    "resume": "Resume"
+  },
+  "back_to_home": "Back to Home",
+  "open_pdf": "Open PDF",
+  "projects": {
+    "title": "Projects",
+    "list": [
+      {
+        "name": "Project One",
+        "description": "Short description of project one."
+      },
+      {
+        "name": "Project Two",
+        "description": "Short description of project two."
+      }
+    ]
+  }
+}
