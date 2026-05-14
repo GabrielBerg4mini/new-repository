@@ -141,9 +141,16 @@ export function Header() {
           <li>
             <Link
               href={RESUME_LINK[0].href}
-              className="text-foreground-muted transition-colors duration-300 bg-slate-700 py-2 px-3 rounded-md hover:bg-linear-to-r hover:from-cyan-400 hover:via-sky-400 hover:to-blue-500 hover:text-zinc-50 *:transition-colors font-semibold "
+              className="group relative inline-flex overflow-hidden rounded-lg p-px bg-linear-to-r from-cyan-400 via-sky-400 to-blue-500"
+              aria-label="Open Resume"
             >
-              {t(RESUME_LINK[0].labelKey)}
+              <span className="relative block rounded-[calc(var(--radius-lg)-1px)] bg-zinc-900 px-6 py-2 font-semibold text-white">
+                <span
+                  aria-hidden
+                  className="absolute inset-0 origin-left scale-x-0 rounded-[calc(var(--radius-lg)-1px)] bg-linear-to-r from-cyan-500 via-sky-500 to-blue-600 transition-transform duration-500 ease-out group-hover:scale-x-100"
+                />
+                <span className="relative z-10">{t(RESUME_LINK[0].labelKey)}</span>
+              </span>
             </Link>
           </li>
         </ul>
