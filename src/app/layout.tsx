@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Geist, Intel_One_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 
 // Imports for Header component
@@ -11,8 +11,8 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const intelOneMono = Intel_One_Mono({
+  variable: "--font-intel-one-mono",
   subsets: ["latin"],
 });
 
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased scroll-smooth`}
+      className={`${geistSans.variable} ${intelOneMono.variable} ${poppins.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">
         <LanguageProvider>
