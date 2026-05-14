@@ -87,7 +87,6 @@ export function Header() {
           </ul>
         </nav>
 
-        {/* Social Icons */}
         <ul className="flex gap-4 items-center">
           <li>
             <button
@@ -142,7 +141,7 @@ export function Header() {
           <li>
             <Link
               href={RESUME_LINK[0].href}
-              className="text-foreground-muted transition-colors duration-300 bg-slate-700 py-2 px-3 rounded-md hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors font-semibold"
+              className="text-foreground-muted transition-colors duration-300 bg-slate-700 py-2 px-3 rounded-md hover:bg-linear-to-r hover:from-cyan-400 hover:via-sky-400 hover:to-blue-500 hover:text-zinc-50 *:transition-colors font-semibold "
             >
               {t(RESUME_LINK[0].labelKey)}
             </Link>
