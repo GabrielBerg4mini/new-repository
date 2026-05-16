@@ -11,6 +11,14 @@
   },
   "back_to_home": "Back to Home",
   "open_pdf": "Open PDF",
+  "hero": {
+    "saudation": "Hello — I'm",
+    "developer_front_text": "Frontend Engineer",
+    "developer_mobile_text": "Mobile Developer",
+    "first_description": "Frontend enginner using HTML, CSS, JavaScript, TypeScript, Angular, React and NextJs.",
+    "second_description": "I use these technologies for both web and mobile front-end development.",
+    "open_resume": "Open resume"
+  },
   "projects": {
     "title": "Projects",
     "list": [
