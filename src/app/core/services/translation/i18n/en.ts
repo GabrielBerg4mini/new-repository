@@ -1,0 +1,29 @@
+export const en = {
+  header: {
+    nav: {
+      about: 'About',
+      skills: 'Skills',
+      experience: 'Experience',
+      projects: 'Projects',
+      certifications: 'My certifications',
+    },
+    resume: 'Resume',
+  },
+  back_to_home: 'Back to Home',
+  open_pdf: 'Open PDF',
+  hero: {
+    saudation: "Hello — I'm",
+    developer_front_text: 'Frontend Engineer',
+    developer_mobile_text: 'Mobile Developer',
+    first_description: 'Frontend enginner using HTML, CSS, JavaScript, TypeScript, Angular.',
+    second_description: 'I use these technologies for both web and mobile front-end development.',
+    open_resume: 'Open resume',
+  },
+  projects: {
+    title: 'Projects',
+    list: [
+      { name: 'Project One', description: 'Short description of project one.' },
+      { name: 'Project Two', description: 'Short description of project two.' },
+    ],
+  },
+} as const;
