@@ -1,8 +1,9 @@
-.next
-out
-build
+dist
+out-tsc
 coverage
 node_modules
 .husky/_
+storybook-static
+documentation.json
 AGENTS.md
 CLAUDE.md
