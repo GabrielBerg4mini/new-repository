@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gabriel Bergamini — Portfolio
 
-## Getting Started
+Personal portfolio site, built with Angular 21 (standalone components, signals) and Tailwind CSS v4. No login, no backend integration yet — that's planned for a later iteration once companion APIs exist.
 
-First, run the development server:
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm start        # ng serve, http://localhost:4200
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm start` — dev server (`ng serve`)
+- `npm run build` — production build (`ng build`)
+- `npm run watch` — dev build in watch mode
+- `npm test` — unit tests (`ng test`, powered by Vitest)
+- `npm run storybook` — component explorer at http://localhost:6006
+- `npm run build-storybook` — static Storybook build
+- `npm run lint` — ESLint (`@angular-eslint`)
+- `npm run format` / `npm run format:check` — Prettier
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+- `src/app/core/services` — theme, i18n (EN/PT) and active-hash services, all signal-based.
+- `src/app/layouts` — route shells (currently just `main-layout`, which renders the header).
+- `src/app/features/<feature>/pages` — routed pages (`home`, `resume`).
+- `src/app/shared/{molecules,organisms}` — reusable design-system components (atomic design), each with a co-located `.spec.ts` and, where relevant, a `.stories.ts`.
+- `src/environments` — `environment.ts`/`environment.prod.ts` are git-ignored (copy `environment.example.ts` locally before building) to avoid leaking API URLs added later.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Path imports use the `@/*` alias (`@/app/...`), mapped to `./src/*` in `tsconfig.json`.
