@@ -1,0 +1,97 @@
+<header class="border-border border-b bg-secondary">
+  <div [class]="rootRowClass()">
+    <button
+      type="button"
+      [attr.aria-expanded]="isMobileMenuOpen()"
+      aria-controls="menu-mobile"
+      class="group relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-md transition-colors duration-300 md:hidden"
+      [attr.data-open]="isMobileMenuOpen()"
+      (click)="toggleMobileMenu()"
+    >
+      <svg
+        lucideMenu
+        [size]="20"
+        class="absolute transition-all duration-300 ease-in-out group-data-[open=true]:scale-75 group-data-[open=true]:rotate-90 group-data-[open=true]:opacity-0 text-foreground-muted"
+      ></svg>
+      <svg
+        lucideX
+        [size]="20"
+        class="absolute scale-75 rotate-90 opacity-0 transition-all duration-300 ease-in-out group-data-[open=true]:scale-100 group-data-[open=true]:rotate-0 group-data-[open=true]:opacity-100 text-foreground-muted"
+      ></svg>
+    </button>
+
+    <nav class="hidden md:flex items-center gap-40" id="menu-desktop">
+      <ul [class]="navListClass()">
+        @for (link of navLinks; track link.href) {
+          <li>
+            <app-nav-link-component
+              [href]="link.href"
+              [label]="link.labelKey | translate"
+              [active]="activeHash.isActive(link.href)"
+              [transitioning]="isChangingLanguage()"
+            />
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <ul class="flex gap-4 items-center">
+      <li>
+        <button
+          type="button"
+          class="text-foreground-muted relative h-10 w-10 flex items-center justify-center overflow-hidden rounded-md bg-slate-700 cursor-pointer transition-colors duration-300 font-semibold hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors"
+          aria-label="Toggle language"
+          [attr.data-lang]="translation.locale()"
+          (click)="onToggleLanguage()"
+        >
+          <span [class]="langLabelClass()">{{ translation.locale() === 'en' ? 'EN' : 'PT' }}</span>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          [attr.aria-pressed]="theme.theme() === 'dark'"
+          aria-label="Toggle theme"
+          class="text-foreground-muted relative h-10 w-10 flex items-center justify-center overflow-hidden rounded-md bg-slate-700 cursor-pointer transition-colors duration-300 font-semibold hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors"
+          (click)="theme.toggleTheme()"
+        >
+          <span class="sr-only">Toggle theme</span>
+          <svg lucideSun [size]="18" [attr.aria-hidden]="true" [class]="sunIconClass()"></svg>
+          <svg lucideMoon [size]="16" [attr.aria-hidden]="true" [class]="moonIconClass()"></svg>
+        </button>
+      </li>
+      <li>
+        <a
+          [routerLink]="resumeLink.href"
+          class="group relative inline-flex overflow-hidden rounded-lg p-px bg-linear-to-r from-cyan-400 via-sky-400 to-blue-500"
+          aria-label="Open Resume"
+        >
+          <span
+            class="relative block rounded-[calc(var(--radius-lg)-1px)] bg-zinc-900 px-6 py-2 font-semibold text-white"
+          >
+            <span
+              aria-hidden="true"
+              class="absolute inset-0 origin-left scale-x-0 rounded-[calc(var(--radius-lg)-1px)] bg-linear-to-r from-cyan-500 via-sky-500 to-blue-600 transition-transform duration-500 ease-out group-hover:scale-x-100"
+            ></span>
+            <span class="relative z-10">{{ resumeLink.labelKey | translate }}</span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <nav [class]="mobileNavClass()" id="menu-mobile">
+    <ul [class]="mobileListClass()">
+      @for (link of navLinks; track link.href) {
+        <li>
+          <app-nav-link-component
+            [href]="link.href"
+            [label]="link.labelKey | translate"
+            [active]="activeHash.isActive(link.href)"
+            [transitioning]="isChangingLanguage()"
+          />
+        </li>
+      }
+    </ul>
+  </nav>
+</header>
