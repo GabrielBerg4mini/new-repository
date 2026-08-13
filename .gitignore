@@ -55,3 +55,4 @@ storybook-static
 /documentation.json
 
 /docs/*
+/environments/*
