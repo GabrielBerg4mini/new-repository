@@ -1,0 +1,43 @@
+<main class="min-h-screen text-foreground">
+  <section class="flex min-h-screen w-full flex-col px-5 py-8 md:px-20">
+    <a
+      routerLink="/"
+      class="group text-sm text-foreground-muted transition-colors hover:text-primary mb-4 flex items-center gap-1"
+    >
+      <svg
+        lucideArrowLeft
+        [size]="16"
+        class="transition-transform duration-300 group-hover:-translate-x-1"
+      ></svg>
+      {{ 'back_to_home' | translate }}
+    </a>
+
+    <div class="mb-6 flex items-center justify-between gap-4 flex-wrap">
+      <div>
+        <p class="text-sm uppercase tracking-[0.3em] text-foreground-muted">Resume</p>
+        <h1 class="mt-2 text-3xl font-semibold text-primary md:text-4xl">
+          Gabriel De Souza Bergamini
+        </h1>
+      </div>
+
+      <a
+        class="rounded-md border border-foreground-muted px-4 py-2 text-sm text-foreground-muted transition-colors hover:border-primary hover:text-primary"
+        [href]="resumePdfPath"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ 'open_pdf' | translate }}
+      </a>
+    </div>
+
+    <div
+      class="min-h-[75vh] overflow-hidden rounded-2xl border border-border bg-background shadow-2xl"
+    >
+      <iframe
+        title="Gabriel de Souza Bergamini resume"
+        class="h-[75vh] w-full"
+        [src]="resumePdfUrl"
+      ></iframe>
+    </div>
+  </section>
+</main>
