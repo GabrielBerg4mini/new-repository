@@ -4,7 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { LucideArrowLeft } from '@lucide/angular';
 import { TranslatePipe } from '@/app/shared/pipes/translate/translate';
 
-const RESUME_PDF_PATH = '/pdfs/Gabriel_Bergamini_CV.pdf';
+const RESUME_PDF_PATH = 'pdfs/Gabriel_Bergamini_CV.pdf';
 
 @Component({
   selector: 'app-resume',
