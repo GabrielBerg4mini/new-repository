@@ -8,7 +8,8 @@ export const NAV_LINKS: NavLink[] = [
   { labelKey: 'header.nav.skills', href: '#skills' },
   { labelKey: 'header.nav.experience', href: '#experience' },
   { labelKey: 'header.nav.projects', href: '#projects' },
-  { labelKey: 'header.nav.certifications', href: '#certifications' },
+  { labelKey: 'header.nav.education', href: '#education' },
+  { labelKey: 'header.nav.contact', href: '#contact' },
 ];
 
 export const RESUME_LINK: NavLink = { labelKey: 'header.resume', href: '/resume' };

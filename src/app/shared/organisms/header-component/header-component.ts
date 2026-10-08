@@ -69,7 +69,7 @@ export class HeaderComponent implements OnDestroy {
     () =>
       `overflow-hidden transition-all duration-300 ease-out origin-top md:hidden ${
         this.isMobileMenuOpen()
-          ? 'max-h-64 translate-y-0 opacity-100'
+          ? 'max-h-80 translate-y-0 opacity-100'
           : 'max-h-0 -translate-y-3 opacity-0'
       }`,
   );

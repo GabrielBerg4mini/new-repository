@@ -1,0 +1,41 @@
+<section
+  id="about"
+  class="scroll-mt-8 flex flex-col items-center gap-12 py-20 lg:flex-row lg:justify-between lg:gap-16"
+>
+  <article appReveal class="w-full lg:w-1/2">
+    <app-section-title-component
+      [eyebrow]="'about.eyebrow' | translate"
+      [title]="'about.title' | translate"
+    />
+    <p
+      class="text-center text-sm font-semibold leading-relaxed text-gray-400 sm:text-base md:text-left md:text-lg"
+    >
+      {{ 'about.description' | translate }}
+    </p>
+  </article>
+
+  <ul class="relative grid w-full grid-cols-2 gap-4 lg:w-1/2">
+    @for (stat of stats; track stat; let i = $index) {
+      <li
+        [appReveal]="i * 120"
+        class="flex flex-col justify-center rounded-2xl border border-border bg-surface p-6 text-center transition-shadow duration-300 hover:shadow-[0_20px_60px_rgba(14,165,233,0.18)] md:min-h-36 md:text-left"
+      >
+        <p
+          class="bg-linear-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-4xl font-bold text-transparent md:text-5xl"
+        >
+          <app-count-up-component [value]="'about.stats.' + stat + '.value' | translate" />
+        </p>
+        <p class="mt-2 text-sm font-semibold text-foreground-muted">
+          {{ 'about.stats.' + stat + '.label' | translate }}
+        </p>
+      </li>
+    }
+
+    <li
+      aria-hidden="true"
+      class="pointer-events-none absolute top-1/2 left-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl bg-linear-to-r from-cyan-400 via-sky-400 to-blue-500 text-zinc-900 shadow-[0_0_0_6px_var(--background),0_10px_30px_rgba(14,165,233,0.35)]"
+    >
+      <svg lucidePlus [size]="24" [strokeWidth]="3"></svg>
+    </li>
+  </ul>
+</section>

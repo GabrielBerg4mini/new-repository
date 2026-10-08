@@ -1,0 +1,59 @@
+<section id="contact" class="scroll-mt-8 pt-20 pb-10">
+  <app-section-title-component
+    [eyebrow]="'contact.eyebrow' | translate"
+    [title]="'contact.title' | translate"
+  />
+
+  <p
+    appReveal
+    class="mb-10 max-w-2xl text-center text-sm font-semibold leading-relaxed text-gray-400 sm:text-base md:text-left md:text-lg"
+  >
+    {{ 'contact.description' | translate }}
+  </p>
+
+  <ul class="grid gap-4 md:grid-cols-3">
+    @for (link of links; track link.href; let i = $index) {
+      <li [appReveal]="i * 120">
+        <a
+          [href]="link.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group relative flex overflow-hidden rounded-2xl p-px bg-linear-to-r from-cyan-400 via-sky-400 to-blue-500"
+        >
+          <span
+            class="relative flex w-full items-center justify-between gap-3 rounded-[calc(var(--radius-2xl)-1px)] bg-zinc-900 px-5 py-4 text-white"
+          >
+            <span
+              aria-hidden="true"
+              class="absolute inset-0 origin-left scale-x-0 bg-linear-to-r from-cyan-500 via-sky-500 to-blue-600 transition-transform duration-500 ease-out group-hover:scale-x-100"
+            ></span>
+            <span class="relative z-10 min-w-0">
+              <span
+                class="block font-mono text-xs font-semibold uppercase tracking-widest text-zinc-400 group-hover:text-white"
+              >
+                {{ link.labelKey | translate }}
+              </span>
+              <span class="block truncate text-sm font-semibold">{{ link.value }}</span>
+            </span>
+            <svg
+              lucideArrowUpRight
+              [size]="20"
+              aria-hidden="true"
+              class="relative z-10 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            ></svg>
+          </span>
+        </a>
+      </li>
+    }
+  </ul>
+
+  <footer
+    class="mt-16 flex flex-col items-center justify-between gap-2 border-t border-border pt-6 text-sm text-foreground-muted md:flex-row"
+  >
+    <p class="flex items-center gap-2">
+      <svg lucideMapPin [size]="16" aria-hidden="true"></svg>
+      {{ 'contact.location' | translate }}
+    </p>
+    <p>© {{ year }} Gabriel Bergamini. {{ 'contact.rights' | translate }}</p>
+  </footer>
+</section>
