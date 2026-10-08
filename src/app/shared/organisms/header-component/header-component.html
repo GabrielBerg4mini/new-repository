@@ -41,6 +41,7 @@
           type="button"
           class="text-foreground-muted relative h-10 w-10 flex items-center justify-center overflow-hidden rounded-md bg-slate-700 cursor-pointer transition-colors duration-300 font-semibold hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors"
           aria-label="Toggle language"
+          title="Toggle language"
           [attr.data-lang]="translation.locale()"
           (click)="onToggleLanguage()"
         >
@@ -52,6 +53,7 @@
           type="button"
           [attr.aria-pressed]="theme.theme() === 'dark'"
           aria-label="Toggle theme"
+          title="Toggle theme"
           class="text-foreground-muted relative h-10 w-10 flex items-center justify-center overflow-hidden rounded-md bg-slate-700 cursor-pointer transition-colors duration-300 font-semibold hover:bg-slate-800 hover:border-slate-800 hover:text-slate-300 *:transition-colors"
           (click)="theme.toggleTheme()"
         >
