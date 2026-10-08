@@ -1,0 +1,41 @@
+<section id="skills" class="scroll-mt-8 py-20">
+  <app-section-title-component
+    [eyebrow]="'skills.eyebrow' | translate"
+    [title]="'skills.title' | translate"
+  />
+
+  <div class="grid gap-6 md:grid-cols-3">
+    @for (group of groups; track group.titleKey; let i = $index) {
+      <article
+        [appReveal]="i * 150"
+        class="rounded-2xl border border-border bg-surface p-6 transition-shadow duration-300 hover:shadow-[0_20px_60px_rgba(14,165,233,0.18)]"
+      >
+        <div class="mb-5 flex items-center gap-3">
+          <span
+            class="flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-r from-cyan-400 via-sky-400 to-blue-500 text-zinc-900"
+          >
+            @switch (group.icon) {
+              @case ('code') {
+                <svg lucideCode [size]="20" aria-hidden="true"></svg>
+              }
+              @case ('wrench') {
+                <svg lucideWrench [size]="20" aria-hidden="true"></svg>
+              }
+              @case ('layers') {
+                <svg lucideLayers [size]="20" aria-hidden="true"></svg>
+              }
+            }
+          </span>
+          <h3 class="text-lg font-semibold text-foreground">{{ group.titleKey | translate }}</h3>
+        </div>
+        <ul class="flex flex-wrap gap-2">
+          @for (item of group.items; track item) {
+            <li>
+              <app-chip-component>{{ item }}</app-chip-component>
+            </li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+</section>

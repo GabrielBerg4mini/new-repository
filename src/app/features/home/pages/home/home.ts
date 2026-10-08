@@ -1,9 +1,25 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HeroComponent } from '@/app/shared/organisms/hero-component/hero-component';
+import {
+  AboutComponent,
+  ContactComponent,
+  EducationComponent,
+  ExperienceComponent,
+  HeroComponent,
+  ProjectsComponent,
+  SkillsComponent,
+} from '@/app/shared/organisms/index';
 
 @Component({
   selector: 'app-home',
-  imports: [HeroComponent],
+  imports: [
+    HeroComponent,
+    AboutComponent,
+    SkillsComponent,
+    ExperienceComponent,
+    ProjectsComponent,
+    EducationComponent,
+    ContactComponent,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
